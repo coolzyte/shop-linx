@@ -1,9 +1,14 @@
+import { Product } from '@/utils/data';
 import Link from 'next/link';
 
-export default function ProductItem({ product }) {
+interface ProductItemProps {
+  product: Product;
+}
+
+export default function ProductItem({ product }: ProductItemProps) {
   return (
     <div className="card">
-      <Link href={'/product/${product.slug}'}>
+      <Link href={`/product/${product.slug}`}>
         <span>
           <img
             src={product.image}
