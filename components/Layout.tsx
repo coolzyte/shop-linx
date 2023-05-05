@@ -1,5 +1,9 @@
+import { Store, IState } from '@/utils/Store';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useContext } from 'react';
+
+interface ILayoutContext extends IState {}
 
 interface LayoutProps {
   title?: string;
@@ -7,6 +11,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ title, children }: LayoutProps) {
+  const { cart } = useContext<ILayoutContext>(Store);
   return (
     <>
       <Head>
@@ -21,14 +26,21 @@ export default function Layout({ title, children }: LayoutProps) {
               <span className="text-lg font-bold">shoplinx</span>
             </Link>
             <div className="space-x-2">
-              <Link href="/cart">Cart</Link>
+              <Link href="/cart">
+                Cart
+                {cart.cartItems.length > 0 && (
+                  <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                    {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  </span>
+                )}
+              </Link>
               <Link href="/login">Login</Link>
             </div>
           </nav>
         </header>
         <main className="container m-auto mt-4 px-4">{children}</main>
         <footer className="flex h-10 justify-center items-center shadow-inner">
-          <p>Copyright © 2023 Shoplinx</p>
+          <p>&copy; {new Date().getFullYear()} Shoplinx</p>
         </footer>
       </div>
     </>
