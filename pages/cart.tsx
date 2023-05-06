@@ -7,6 +7,15 @@ import { XCircleIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
+interface CartItem {
+  slug: string;
+  image: string;
+  name: string;
+  quantity: number;
+  countInStock: number;
+  price: number;
+}
+
 function CartScreen() {
   const { state, dispatch } = useContext(Store);
   const {
@@ -14,11 +23,11 @@ function CartScreen() {
   } = state;
   const router = useRouter();
 
-  const removeItemHandler = (item) => {
+  const removeItemHandler = (item: CartItem) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
 
-  const updateCartHandler = (item, qty) => {
+  const updateCartHandler = (item: CartItem, qty: string) => {
     const quantity = Number(qty);
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
   };
@@ -42,7 +51,7 @@ function CartScreen() {
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item) => (
+                {cartItems.map((item: CartItem) => (
                   <tr key={item.slug} className="border-b">
                     <td>
                       <Link href={`/product/${item.slug}`}>
@@ -93,7 +102,7 @@ function CartScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('/shipping')}
+                  onClick={() => router.push('login?redirect=/shipping')}
                   className="primary-button w-full"
                 >
                   Check Out
