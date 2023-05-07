@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 export interface Product {
   name: string;
   slug: string;
@@ -12,6 +13,20 @@ export interface Product {
 }
 
 const data = {
+  users: [
+    {
+      name: 'John',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'Jane',
+      email: 'user@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
       name: 'Free Shirt',
