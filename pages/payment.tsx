@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import { Store } from '@/utils/Store';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export default function PaymentScreen() {
@@ -12,7 +12,7 @@ export default function PaymentScreen() {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const { shippingAddress, paymentMethod } = cart;
-  const submitHandler = (e) => {
+  const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     if (!selectedPaymentMethod) {
       return toast.error('Payment method is required');
